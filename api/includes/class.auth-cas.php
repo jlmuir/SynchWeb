@@ -58,6 +58,11 @@ class CASAuthentication extends AuthenticationBase implements Authentication {
             }
         }
 
+        if ($code == 201) {
+            $st = $this->service('https://ispyb.diamond.ac.uk');
+            $this->validate('https://ispyb.diamond.ac.uk', $st);
+        }
+
         // CAS returns 201 = Created
         return $code == 201;
     }
@@ -82,14 +87,16 @@ class CASAuthentication extends AuthenticationBase implements Authentication {
     }
 
     function validate($service, $ticket) {
+        global $cas_url;
+
         $fields = array(
             'service' => $service,
             'ticket' => $ticket,
-            'format' => 'JSON',
+            // 'format' => 'JSON', // doesnt work?
         );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://'.$cas_url.'/cas/v1/serviceValidate');
+        curl_setopt($ch, CURLOPT_URL, 'https://'.$cas_url.'/cas/serviceValidate');
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -97,7 +104,11 @@ class CASAuthentication extends AuthenticationBase implements Authentication {
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        return rtrim($resp);
+        if (preg_match('/cas:user>(\w+)<\/cas:user/', $resp, $mat)) {
+            $this->login = $mat[1];
+        }
+
+        return $resp;
     }
 
 }

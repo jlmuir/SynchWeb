@@ -211,7 +211,7 @@
 				$auth_handler = new $class();
 
 				if ($auth_handler->authenticate($login, $password)) {
-					$this->_output(200, $this->generate_jwt($login));
+					$this->_output(200, $this->generate_jwt($auth_handler->login ? $auth_handler->login : $login));
 				} else {
 					$this->_error(400, 'Invalid Credentials');
 				}
@@ -232,7 +232,7 @@
 
 	// Base Authentication class which any mechanism inherts
 	class AuthenticationBase {
-
+		public $login;
 	}
 
 
