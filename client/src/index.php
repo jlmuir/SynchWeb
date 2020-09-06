@@ -65,9 +65,11 @@
         
             <div id="footer">
                 <div class="whatnow">
-                    <a href="http://diamondlightsource.github.io/SynchWeb/">SynchWeb? What is This?</a>
+                    <p>Powered by <a href="http://diamondlightsource.github.io/SynchWeb/">SynchWeb</a></p>
                 </div>
-                <p><a href="<%= htmlWebpackPlugin.options.jsonConfig.site_link || 'https://www.diamond.ac.uk' %>"><%- htmlWebpackPlugin.options.jsonConfig.site_name || 'Diamond Light Source' %></a> &copy;2013-<script>document.write(new Date().getFullYear())</script></p>
+                <div class="site">
+                    <p><a href="<%= htmlWebpackPlugin.options.jsonConfig.site_link || 'https://www.diamond.ac.uk' %>"><%- htmlWebpackPlugin.options.jsonConfig.site_name || 'Diamond Light Source' %></a> &copy;2013-<script>document.write(new Date().getFullYear())</script></p>
+                </div>
             </div>
         
         </div>

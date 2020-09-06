@@ -149,6 +149,7 @@
     // background: $footer-background inline-image('ispyb_gs_medium.png') center center no-repeat;
     height: 200px;
     background-position: 50% 85%;
+    display: inline-block;
     
     @media (max-width: $breakpoint-medium) {
         clear: both;
@@ -156,9 +157,30 @@
 
     .whatnow {
         border-top: 1px solid #bbb;
-        font-size: 16px;
+        font-size: 12px;
         font-family: $page-header-font;
-        text-align: center;
+        text-align: left;
+        float: left;
+
+        a {
+            display: block;
+            padding: 0.5%;
+            color: #222;
+            background: #eee;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+                color: #000;
+            };
+        }
+    }
+
+    .site {
+        border-top: 1px solid #bbb;
+        font-size: 12px;
+        font-family: $page-header-font;
+        text-align: right;
+        float: right;
 
         a {
             display: block;
